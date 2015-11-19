@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,7 +37,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	
+	RootLayoutController rootController = null;
 	private Table tbl;
 	
 	private int iGameType;
@@ -47,7 +48,7 @@ public class MainApp extends Application {
 		tbl = new Table();
 		
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 400, 400);
+		Scene scene = new Scene(root, 1300, 500);
 
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Poker");
@@ -139,6 +140,14 @@ public class MainApp extends Application {
 
 	public void setiGameType(int iGameType) {
 		this.iGameType = iGameType;
+	}
+	
+	public ToggleGroup getToggleGroup()
+	{
+		ToggleGroup tgl = rootController.getTglGames();
+		return tgl;
+		
+
 	}
 	
 	
