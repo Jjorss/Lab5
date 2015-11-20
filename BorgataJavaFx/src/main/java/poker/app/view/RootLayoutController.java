@@ -4,8 +4,11 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import enums.eGame;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -13,9 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import poker.app.MainApp;
+import pokerBase.Rule;
 
 /**
  * The controller for the root layout. The root layout provides the basic
@@ -34,6 +39,26 @@ public class RootLayoutController implements Initializable {
     
     @FXML
     private ToggleGroup tglGames;
+    
+    @FXML
+    private RadioMenuItem Omaha = new RadioMenuItem();
+    
+    @FXML
+    private RadioMenuItem Texas = new RadioMenuItem();
+    
+    // Five Card Draw
+    @FXML
+    private RadioMenuItem FCD = new RadioMenuItem();
+    
+    // Seven Card Draw
+    @FXML
+    private RadioMenuItem SCD = new RadioMenuItem();
+    
+    @FXML
+    private RadioMenuItem oneJoker = new RadioMenuItem();
+    
+    @FXML
+    private RadioMenuItem twoJoker = new RadioMenuItem();
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +98,50 @@ public class RootLayoutController implements Initializable {
      * @param mainApp
      */
     public void setMainApp(MainApp mainApp) {
+    	Omaha.setToggleGroup(tglGames);
+    	Texas.setToggleGroup(tglGames);
+    	FCD.setToggleGroup(tglGames);
+		Omaha.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("omaha toggled");
+                PokerTableController.setRle(new Rule(eGame.Omaha));
+            }
+        });
+		Texas.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("texas toggled");
+                PokerTableController.setRle(new Rule(eGame.TexasHoldEm));
+            }
+        });
+		
+		FCD.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("fcd toggled");
+                PokerTableController.setRle(new Rule(eGame.FiveStud));
+            }
+        });
+    	
+		SCD.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("scd toggled");
+                PokerTableController.setRle(new Rule(eGame.SevenDraw));
+            }
+        });
+		
+		oneJoker.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("one joker toggled");
+                PokerTableController.setRle(new Rule(eGame.FiveStudOneJoker));
+            }
+        });
+		
+		twoJoker.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("two joker toggled");
+                PokerTableController.setRle(new Rule(eGame.FiveStudTwoJoker));
+            }
+        });
+		
         this.mainApp = mainApp;
     }
 

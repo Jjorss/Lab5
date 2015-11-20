@@ -69,7 +69,6 @@ public class PokerTableController {
 	// Reference to the main application.
 	private MainApp mainApp;
 	private GamePlay gme = null;
-	private Rule rle = null;
 	private Timer timer;
 	private int iCardDrawn = 0;
 	private int iCardDrawnPlayer = 0;
@@ -89,6 +88,12 @@ public class PokerTableController {
 	private ImageView imgTransCardP3 = new ImageView();
 	private ImageView imgTransCardP4 = new ImageView();
 	private ImageView imgTransCardCommon = new ImageView();
+	
+	private static Rule rle = new Rule(eGame.FiveStud);
+
+	public static void setRle(Rule rle) {
+		PokerTableController.rle = rle;
+	}
 
 	@FXML
 	public HBox HboxCommonArea;
@@ -279,7 +284,6 @@ public class PokerTableController {
 		winner4.setVisible(false);
 
 		// Get the Rule, start the Game
-		rle = new Rule(eGame.SevenDraw);
 		gme = new GamePlay(rle);
 
 		// Add the seated players to the game
@@ -488,6 +492,7 @@ public class PokerTableController {
 		} else if (WinningPlayer.getiPlayerPosition() == 4) {
 			winner4.setVisible(true);
 		}
+		btnPlay.setVisible(true);
 	}
 	
 	private void winnersCards(Hand winningHand, Player p) {
